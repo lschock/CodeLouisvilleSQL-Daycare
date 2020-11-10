@@ -348,23 +348,32 @@ Having DayCareName = 'KidsLearnHere' AND Children.ChildAge =3
 
 
 ----Write a DML statement that DELETES a set of rows with a WHERE clause.  The values used in the WHERE clause should be a variable
---Declare @LastName varchar(100) = 'Dayce'
---Delete 
---FROM dbo.Children
---WHERE LastName = @LastName
+
+Declare @mychildID int
+Select @mychildID = Children.ChildID
+From Children
+Where Children.LastName = 'Birchner'
+
+Select @mychildID
+
+Delete
+From Parent_Children
+Where ChildID = @mychildID
+
+Delete 
+from Children
+Where ChildID = @mychildID
+
 
 --/*Write a DML statement that DELETES rows from a table that another table references.  This script will have to also DELETE any records that
 --reference these rows.  Both of the DELETE statements need to be wrapped in a single TRANSACTION.*/
 
---BEGIN Transaction
---DECLARE @LastName varchar(100) = 'Bagot';
---DECLARE @Parent1ID int = 17;
---DECLARE @Parent2ID int = 18;
+BEGIN Transaction
+DELETE 
+FROM Parent_Children
+Where ChildID = 39
 
---DELETE * 
---FROM  Children INNER JOIN
---         Parent_Children ON Children.ChildID = Parent_Children.ChildID INNER JOIN
---         Parents ON Parent_Children.ParentID = Parents.ParentID
---Where Children.LastName = @LastName AND (Parents.ParentID = @Parent1ID OR Parents.ParentID = @Parent2ID)
-
---COMMIT;
+Delete 
+FROM Children
+Where  ChildID = 39
+Commit;
