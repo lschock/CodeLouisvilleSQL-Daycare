@@ -250,7 +250,7 @@ INCLUDE (ChildAge)
 CREATE TABLE [dbo].[Parent_Child]( 
 ParentID int FOREIGN KEY References dbo.Parents(ParentID),
 ChildID int FOREIGN KEY References dbo.Children(ChildID),
-CONSTRAINT Parent_Child PRIMARY KEY ([ParentID], [ChildID])
+CONSTRAINT Parent_Children PRIMARY KEY ([ParentID], [ChildID])
 )
  
 INSERT INTO [dbo].Parent_Child (ParentID, ChildID)
@@ -338,12 +338,14 @@ GROUP BY DayCare.DayCareName, Children.ChildAge, Children.Gender
 
 /*Write a SELECT query that utilizes a JOIN with 3 or more tables, at least 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC), 
 a GROUP BY clause with an aggregate function, and a HAVING clause.*/
+
+
 SELECT DayCare.DayCareName, sum(Children.MonthlyFee), Children.ChildAge, Children.Gender
 FROM  DayCare INNER JOIN
          Teacher ON DayCare.DayCareID = Teacher.DayCareID INNER JOIN
          Children ON Teacher.TeacherID = Children.TeacherID
 GROUP BY DayCare.DayCareName, Children.ChildAge, Children.Gender
-Having DayCareName = 'KidsLearnHere' AND Children.ChildAge =3
+Having DayCareName = 'KidsLearnHere' AND (Children.ChildAge =3 OR Children.ChildAge = 5)
 
 
 
@@ -352,17 +354,21 @@ Having DayCareName = 'KidsLearnHere' AND Children.ChildAge =3
 Declare @mychildID int
 Select @mychildID = Children.ChildID
 From Children
-Where Children.LastName = 'Birchner'
+Where Children.LastName = 'Ashborne'
 
 Select @mychildID
 
 Delete
-From Parent_Children
+From Parent_Child
 Where ChildID = @mychildID
 
 Delete 
 from Children
 Where ChildID = @mychildID
+
+Delete 
+from Parents
+where Parents.LastName = 'Ashborne'
 
 
 --/*Write a DML statement that DELETES rows from a table that another table references.  This script will have to also DELETE any records that
@@ -370,10 +376,10 @@ Where ChildID = @mychildID
 
 BEGIN Transaction
 DELETE 
-FROM Parent_Children
-Where ChildID = 39
+FROM Parent_Child
+Where ChildID = 22
 
 Delete 
 FROM Children
-Where  ChildID = 39
+Where  ChildID = 22
 Commit;
