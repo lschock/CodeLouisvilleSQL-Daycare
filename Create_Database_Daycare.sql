@@ -1,10 +1,29 @@
-
-Create Database Daycare
+Create Database Daycare; 
+GO
 
 
 --Create Parents Table, Insert Data, Create Index and drop table if it already exists
-Use Daycare
+Use Daycare; 
 
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Parent_Child]') AND type in (N'U'))
+DROP TABLE [dbo].[Parent_Child]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Children]') AND type in (N'U'))
+DROP TABLE [dbo].[Children]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Parents]') AND type in (N'U'))
+DROP TABLE [dbo].[Parents]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Teacher]') AND type in (N'U'))
+DROP TABLE [dbo].[Teacher]
+GO
+
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DayCare]') AND type in (N'U'))
+DROP TABLE [dbo].[DayCare]
+GO
 
 CREATE TABLE [dbo].[Parents]( 
 ParentID int PRIMARY KEY not null,
