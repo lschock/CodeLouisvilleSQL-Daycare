@@ -360,8 +360,6 @@ GROUP BY DayCare.DayCareName, Children.ChildAge, Children.Gender
 
 /*Write a SELECT query that utilizes a JOIN with 3 or more tables, at least 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC), 
 a GROUP BY clause with an aggregate function, and a HAVING clause.*/
-
-
 SELECT DayCare.DayCareName, sum(Children.MonthlyFee) AS MonthlyFeeSum, Children.ChildAge, Children.Gender
 FROM  DayCare INNER JOIN
          Teacher ON DayCare.DayCareID = Teacher.DayCareID INNER JOIN
@@ -372,7 +370,6 @@ Having DayCareName = 'KidsLearnHere' AND (Children.ChildAge =3 OR Children.Child
 
 
 ----Write a DML statement that DELETES a set of rows with a WHERE clause.  The values used in the WHERE clause should be a variable
-
 Declare @mychildID int
 Select @mychildID = Children.ChildID
 From Children
@@ -395,7 +392,6 @@ where Parents.LastName = 'Ashborne'
 
 --/*Write a DML statement that DELETES rows from a table that another table references.  This script will have to also DELETE any records that
 --reference these rows.  Both of the DELETE statements need to be wrapped in a single TRANSACTION.*/
-
 BEGIN Transaction
 DELETE 
 FROM Parent_Child
