@@ -316,9 +316,9 @@ FROM  Children LEFT JOIN
          DayCare ON Teacher.DayCareID = DayCare.DayCareID
 
 --Write a SELECT query that utilizes a LEFT JOIN
-SELECT Children.FirstName, Children.LastName, Children.ChildAge, Teacher.LastName AS TeacherLastName, Teacher.ClassAge
-FROM  Children LEFT JOIN
-         Teacher ON Children.TeacherID = Teacher.TeacherID
+SELECT c.FirstName, c.LastName, c.ChildAge, t.LastName AS TeacherLastName, t.ClassAge
+FROM  Children c LEFT JOIN
+         Teacher t ON c.TeacherID = t.TeacherID
 
 --Write a SELECT query that utilizes a variable in the WHERE clause
 Declare @LastName varchar(100) = 'Pilgrim';
@@ -343,12 +343,10 @@ SELECT MAX(ChildAge)-MIN(ChildAge)
 FROM  Children
 
 --Write a SELECT query that utilizes a SUBQUERY
-SELECT AVG(ChildAge)
-From Children
-
 SELECT 
 (Select  AVG(ChildAge) From Children) - ChildAge AS AgeDiff, ChildAge
 FROM  Children
+
 
 --Write a SELECT query that utilizes a JOIN, at least 2 OPERATORS (AND, OR, =, IN, BETWEEN, ETC) AND A GROUP BY clause with an aggregate function
 SELECT DayCare.DayCareName, SUM(Children.MonthlyFee) AS MonthlyFeeSum, Children.ChildAge, Children.Gender
